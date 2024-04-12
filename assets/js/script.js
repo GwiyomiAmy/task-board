@@ -33,6 +33,17 @@ function handleDrop(event, ui) {
 }
 
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
-$(document).ready(function () {
+const toDo = $("#to-do")
+const inProgress = $("#in-progress")
+const done = $("#done")
 
-});
+$(document).ready(function () {
+   toDo.sortable({connectWith:inProgress, dropOnEmpty:false} )
+   toDo.sortable({connectWith:done, dropOnEmpty:false})
+   inProgress.sortable({connectWith:toDo, dropOnEmpty:false} )
+   inProgress.sortable({connectWith:done, dropOnEmpty:false})
+   done.sortable({connectWith:inProgress, dropOnEmpty:false} )
+   done.sortable({connectWith:toDo, dropOnEmpty:false})
+   
+
+})
