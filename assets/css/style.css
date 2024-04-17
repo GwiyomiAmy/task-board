@@ -14,3 +14,16 @@ body {
 .task-card:hover {
   cursor: grab;
 }
+
+.taskList {
+  background-color: orange;
+  padding:10px;
+}
+
+.overdue {
+  background-color: red;
+}
+
+.duesoon {
+  background-color: #ffd900;
+}
