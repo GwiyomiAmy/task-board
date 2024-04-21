@@ -10,8 +10,12 @@
    N/A
    
    ## Usage
+
+   https://gwiyomiamy.github.io/task-board/
    
    When loading the page, click on "Add Task". You will then be prompted to enter a task title, a due date, and any additional content of the task. Once you begin a task click on the task and drag it to in progress. Once the task is completed drag it to done. When you are ready to delete the task click on "Delete". These tasks will save to local storage so you can reload the page as much as you want and the tasks will remain in the status that you left them until you delete the task.
+
+   ![Task Board](./assets/screenshot.png)
    
    ## License
 
