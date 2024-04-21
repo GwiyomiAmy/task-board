@@ -16,14 +16,6 @@ body {
 }
 
 .taskList {
-  background-color: orange;
+  background-color: #f2f3f6;
   padding:10px;
-}
-
-.overdue {
-  background-color: red;
-}
-
-.duesoon {
-  background-color: #ffd900;
 }

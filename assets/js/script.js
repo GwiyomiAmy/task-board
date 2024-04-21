@@ -35,7 +35,8 @@ function createTaskCard(task) {
    cardBodyEl.appendTo(cardEl);
 
    const cardDueDate = $('<p>').text(task.dueDate);
-   console.log(typeof(task.dueDate)) //date.parse, compare to now, dayjs, set attribute to class
+   //console.log(typeof(task.dueDate)) 
+   //date.parse, compare to now, dayjs, set attribute to class
    cardDueDate.appendTo(cardBodyEl);
 
    const cardContent = $('<p>').text(task.content);
@@ -44,6 +45,20 @@ function createTaskCard(task) {
    const deleteButton = $('<button>').text('Delete');
    deleteButton.attr('data-taskID', task.id)
    deleteButton.appendTo(cardBodyEl);
+
+     //Sets the card background color based on due date. Only apply the styles if the dueDate exists and the status is not done.
+   if (task.dueDate && task.status !== 'done') {
+      const now = dayjs();
+      const taskDueDate = dayjs(task.dueDate, 'DD/MM/YYYY');
+
+      //If the task is due today, make the card yellow. If it is overdue, make it red.
+      if (now.isSame(taskDueDate, 'day')) {
+         cardEl.addClass('bg-warning text-white');
+      } else if (now.isAfter(taskDueDate)) {
+         cardEl.addClass('bg-danger text-white');
+         deleteButton.addClass('border-light');
+      }
+   }
 
    deleteButton.on('click', handleDeleteTask);
 
@@ -142,7 +157,7 @@ $(document).ready(function () {
    done.sortable({connectWith:".taskList", receive: handleDrop} )
    renderTaskList()
    
-
+//set calendar popup when entering due date
    $(function () {
       $('#task-due-date').datepicker({
         changeMonth: true,
@@ -151,19 +166,20 @@ $(document).ready(function () {
     });
 })
 
+//set function when button is clicked modal pops up
 $('#modal-btn').on('click', handleAddTask ) 
 
 
 
 
-
+//function to call to simplify adding a new task
 function addTask(task) {
    let taskList = getTaskList()
    taskList.push(task)
    setTaskList(taskList)
 }
 
-
+//function to call to change the status of the task based on which column the task is in
 function updateTaskStatus(taskID, newStatus) {
    let taskList = getTaskList()
    for (let i=0; i<taskList.length; i++){
@@ -174,7 +190,7 @@ function updateTaskStatus(taskID, newStatus) {
    setTaskList(taskList)
 }
 
-
+//function to delete task from task array
 function deleteTask(taskID) {
    let taskList = getTaskList()
    for (let i=0; i<taskList.length; i++){
@@ -185,6 +201,7 @@ function deleteTask(taskID) {
    setTaskList(taskList)
 }
 
+//function to get task list from local storage
 function getTaskList() {
    let tasks = localStorage.getItem("tasks")
    if (tasks === null) {
@@ -193,6 +210,7 @@ function getTaskList() {
    return JSON.parse(tasks)
 }
 
+//function to set task list to local storage
 function setTaskList(tasks) {
    let taskString = JSON.stringify(tasks)
    localStorage.setItem("tasks", taskString)
